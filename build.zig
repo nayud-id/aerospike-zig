@@ -1,4 +1,5 @@
 const std = @import("std");
+const builtin = @import("builtin");
 
 // Although this function looks imperative, it does not perform the build
 // directly and instead it mutates the build graph (`b`) that will be then
@@ -7,6 +8,16 @@ const std = @import("std");
 // build runner to parallelize the build automatically (and the cache system to
 // know when a step doesn't need to be re-run).
 pub fn build(b: *std.Build) void {
+    // Preflight: enforce Zig toolchain version pin (security and reproducibility)
+    // This ensures consumers build with the expected compiler semantics.
+    const ver = builtin.zig_version;
+    if (!(ver.major == 0 and ver.minor == 15 and ver.patch == 1)) {
+        std.debug.panic(
+            "Zig 0.15.1 is required for this project. Detected {d}.{d}.{d}. Please install Zig 0.15.1.",
+            .{ ver.major, ver.minor, ver.patch },
+        );
+    }
+
     // Standard target options allow the person running `zig build` to choose
     // what target to build for. Here we do not override the defaults, which
     // means any target is allowed, and the default is native. Other options

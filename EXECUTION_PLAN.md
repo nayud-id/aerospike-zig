@@ -47,11 +47,10 @@ Proposed directory layout (technical/MVC oriented):
 - common/
   - constants/, errors/, types/, util/
 
-
 ## 2) Task Execution List (ordered, granular)
 
 1. [ ] Project guardrails and metadata
-   - [ ] Pin Zig 0.15.1 in documentation and add a preflight version assertion.
+   - [x] Pin Zig 0.15.1 in documentation and add a preflight version assertion.
    - [ ] Verify build.zig.zon metadata; set minimum_zig_version=0.15.1.
    - [ ] Add security coding standards and logging redaction policy notes.
 
